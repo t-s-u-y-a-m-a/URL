@@ -43,6 +43,9 @@ export class RhythmEngine {
     this.combo = 0;
     this.maxCombo = 0;
     this.counts = { PERFECT: 0, GREAT: 0, GOOD: 0, MISS: 0 };
+    // 休符ゾーンでの誤入力。ノーツのMISSとは別に数える
+    // (ノーツ数より多いMISSがリザルトに出てしまうのを避けるため)
+    this.restMisses = 0;
 
     // レーンごとに「現在押しっぱなしにしているホールドノーツ」を保持
     this.activeHold = { A: null, Space: null, D: null };
@@ -197,7 +200,7 @@ export class RhythmEngine {
 
   _punishRestViolation() {
     // 休符中の誤入力：ノーツを伴わないためnote引数はnullで通知する
-    this.counts.MISS++;
+    this.restMisses++;
     this.combo = 0;
     this.callbacks.onBabyReact && this.callbacks.onBabyReact("cry");
     this.callbacks.onJudge && this.callbacks.onJudge("MISS", null);
@@ -233,6 +236,7 @@ export class RhythmEngine {
     const stats = {
       score: this.score,
       counts: { ...this.counts },
+      restMisses: this.restMisses,
       maxCombo: this.maxCombo,
       totalNotes,
     };
@@ -242,10 +246,11 @@ export class RhythmEngine {
 
 export function calcRank(stats) {
   const { counts, totalNotes } = stats;
+  const restMisses = stats.restMisses || 0;
   if (totalNotes === 0) return "C";
   const accuracy =
     (counts.PERFECT * 1 + counts.GREAT * 0.7 + counts.GOOD * 0.4) / totalNotes;
-  if (counts.MISS === 0 && accuracy >= 0.95) return "S";
+  if (counts.MISS === 0 && restMisses === 0 && accuracy >= 0.95) return "S";
   if (accuracy >= 0.8) return "A";
   if (accuracy >= 0.6) return "B";
   return "C";

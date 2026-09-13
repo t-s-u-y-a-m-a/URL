@@ -65,6 +65,30 @@ function bindNav() {
     SaveStore.save();
     showScreen("ending");
   });
+
+  document.getElementById("btn-goto-ending").addEventListener("click", () => {
+    SaveStore.data.endingViewed = true;
+    SaveStore.save();
+    showScreen("ending");
+  });
+
+  document.getElementById("btn-quit-stage").addEventListener("click", () => {
+    if (!confirm("ステージを ちゅうだんしますか？\n(とちゅうの スコアは きろくされません)")) return;
+    abortStage();
+    showScreen("stage-select");
+  });
+}
+
+// プレイ中にステージを途中で抜けるときの後始末(結果は記録しない)
+function abortStage() {
+  input.disable();
+  if (currentEngine) {
+    currentEngine.stop();
+    currentEngine = null;
+  }
+  Audio_.stopBGM();
+  document.getElementById("rest-indicator").classList.remove("show");
+  document.getElementById("game-hint").classList.remove("show");
 }
 
 // ---------------- STAGE SELECT ----------------
@@ -306,7 +330,11 @@ function renderResult({ stage, stats, rank, cleared, newEhonUnlocked }) {
   document.getElementById("res-perfect").textContent = stats.counts.PERFECT;
   document.getElementById("res-great").textContent = stats.counts.GREAT;
   document.getElementById("res-good").textContent = stats.counts.GOOD;
-  document.getElementById("res-miss").textContent = stats.counts.MISS;
+  // 休符ゾーンでの誤入力は、ノーツのMISSとは分けて「おてつき」として添える
+  document.getElementById("res-miss").textContent =
+    stats.restMisses > 0
+      ? `${stats.counts.MISS}（おてつき ${stats.restMisses}）`
+      : String(stats.counts.MISS);
   document.getElementById("res-combo").textContent = stats.maxCombo;
   document.getElementById("result-rank").textContent = rank;
 
@@ -440,8 +468,12 @@ function renderReadingPage() {
 function finishReading() {
   const gained = usedRecordedVoice ? MOOD_GAIN.readBookRecorded : MOOD_GAIN.readBook;
   const info = gainMood(gained);
-  const wasEndingUnlocked = SaveStore.checkEndingUnlock(TOTAL_STAGES, TOTAL_BOOKS);
+  SaveStore.checkEndingUnlock(TOTAL_STAGES, TOTAL_BOOKS);
   SaveStore.save();
+
+  // エンディングはSTAGE5クリア時点ですでに解放されている場合があるため、
+  // 「今回はじめて解放されたか」ではなく「解放済みかつ未視聴か」で案内を出す。
+  const canSeeEnding = SaveStore.data.endingUnlocked && !SaveStore.data.endingViewed;
 
   document.getElementById("finish-voice").textContent = `「${pickReaction()}」`;
   document.getElementById("finish-note").textContent = usedRecordedVoice
@@ -452,15 +484,14 @@ function finishReading() {
   const finishBaby = new BabyReaction(document.getElementById("finish-baby"));
   finishBaby.setFace(info.level >= 4 ? "bigLaugh" : "laugh");
 
-  showEhonPanel("ehon-panel-finish");
-
-  if (wasEndingUnlocked) {
-    setTimeout(() => {
-      if (confirm("🎉 5冊の えほんが あつまりました！\nてんとの ものがたりを さいごまで みとどけますか？")) {
-        showScreen("ending");
-      }
-    }, 300);
+  const endingBtn = document.getElementById("btn-goto-ending");
+  endingBtn.hidden = !canSeeEnding;
+  if (canSeeEnding) {
+    document.getElementById("finish-note").textContent =
+      "🎉 5冊の えほんが あつまりました！\nてんとの ものがたりを さいごまで みとどけよう。";
   }
+
+  showEhonPanel("ehon-panel-finish");
 }
 
 function bindEhonView() {

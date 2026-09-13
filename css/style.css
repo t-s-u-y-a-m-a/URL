@@ -225,6 +225,16 @@ button {
   color: var(--color-text);
   font-weight: 800;
 }
+.btn-quit {
+  background: none;
+  border: none;
+  color: var(--color-text-soft);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 2px 4px;
+  margin-bottom: 4px;
+  opacity: 0.75;
+}
 .hud-score, .hud-combo { font-size: 1rem; }
 .hud-combo #hud-combo { color: var(--color-primary-dark); font-size: 1.3rem; }
 .baby-stage-view {

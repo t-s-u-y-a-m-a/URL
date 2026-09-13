@@ -64,6 +64,7 @@
   <section id="screen-game" class="screen">
     <div class="game-hud">
       <div class="hud-left">
+        <button class="btn-quit" id="btn-quit-stage">← やめる</button>
         <div class="hud-score">SCORE <span id="hud-score">0</span></div>
         <div class="hud-combo" id="hud-combo-wrap">COMBO <span id="hud-combo">0</span></div>
       </div>
@@ -211,7 +212,8 @@
         <span class="mood-hearts" id="finish-mood-hearts"></span>
       </div>
       <div class="menu-buttons">
-        <button class="btn btn-primary" data-nav="ehon-dana">えほんだなへ</button>
+        <button class="btn btn-primary" id="btn-goto-ending" hidden>🎬 さいごの おはなしへ</button>
+        <button class="btn" data-nav="ehon-dana">えほんだなへ</button>
       </div>
     </div>
   </section>
