@@ -538,7 +538,7 @@ button {
   100% { opacity: 0; transform: translate(-50%, -16px) scale(0.95); }
 }
 
-.baby-stage-view.excited { animation: excitedBounce 0.4s ease; }
+.baby-stage-view.excited, .hand-baby.excited { animation: excitedBounce 0.4s ease; }
 @keyframes excitedBounce {
   0% { transform: scale(1) rotate(0deg); }
   30% { transform: scale(1.2) rotate(-5deg); }

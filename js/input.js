@@ -12,6 +12,7 @@ export class InputManager {
     this.onKeyPress = null; // (key: "A"|"Space"|"D") => void
     this.onKeyRelease = null;
     this._enabled = false;
+    this._touchBound = false; // タッチボタンのリスナーはアプリ全体で一度だけ登録する
     this._pressed = new Set();
 
     this._handleKeyDown = this._handleKeyDown.bind(this);
@@ -23,7 +24,10 @@ export class InputManager {
     this._enabled = true;
     window.addEventListener("keydown", this._handleKeyDown);
     window.addEventListener("keyup", this._handleKeyUp);
-    this._bindTouchButtons();
+    if (!this._touchBound) {
+      this._bindTouchButtons();
+      this._touchBound = true;
+    }
   }
 
   disable() {
