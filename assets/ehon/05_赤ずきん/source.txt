@@ -1,0 +1,28 @@
+作品：赤ずきん (STAGE5)
+ファイル名：cover.jpg (未配置)
+作者：Gustave Doré
+制作年：1862
+出典：Wikimedia Commons
+画像URL：(出典ページURLよりダウンロードしてください)
+出典ページURL：https://commons.wikimedia.org/wiki/File:Dore_ridinghood.jpg
+ライセンス：Public Domain
+ライセンス確認日：2026-09-13
+備考：picture-book.js の表紙(coverImage)用。
+
+---
+
+ファイル名：page01.jpg (未配置)
+作者：Gustave Doré
+制作年：1880
+出典：Wikimedia Commons
+画像URL：(出典ページURLよりダウンロードしてください)
+出典ページURL：https://commons.wikimedia.org/wiki/File:Gustave_Dor%C3%A9_-_Little_Red_Riding_Hood_III_(1880).jpg
+ライセンス：Public Domain
+ライセンス確認日：2026-09-13
+備考：picture-book.js の森でオオカミと出会うページ用に割り当て。
+      てんてんゲームでは幼児向けのため、血・死亡・残酷な描写を含む挿絵は
+      使用しないこと(Doré作品は本文中に該当描写がある場合があるため、
+      実際に画像を確認したうえで採用可否を判断してください)。
+      この実行環境は外部ドメインへのアクセスが制限されており画像バイナリを
+      直接取得できないため、上記出典ページからダウンロードしたファイルを
+      本フォルダに配置してください。

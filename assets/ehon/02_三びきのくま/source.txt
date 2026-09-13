@@ -1,0 +1,13 @@
+作品：三びきのくま (STAGE2)
+ファイル名：cover.jpg (未配置)
+作者：John D. Batten (Joseph Jacobs "English Fairy Tales" 挿絵)
+制作年：1890
+出典：Wikimedia Commons
+画像URL：(出典ページURLよりダウンロードしてください)
+出典ページURL：https://commons.wikimedia.org/wiki/File:The_three_bears_from_Joseph_Jacob%27s_English_Fairy_Tales_(1890).png
+ライセンス：Public Domain
+ライセンス確認日：2026-09-13
+備考：候補1件のみ確認済み。本文ページ用の追加候補は未調査。
+      この実行環境は外部ドメインへのアクセスが制限されており画像バイナリを
+      直接取得できないため、上記出典ページからダウンロードしたファイルを
+      cover.jpg として本フォルダに配置してください。

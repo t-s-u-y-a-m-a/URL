@@ -22,6 +22,12 @@ export class BookReader {
     return typeof page === "string" ? "" : page.imageHint || "";
   }
 
+  // そのページの挿絵パス。未設定なら空文字(画像なしで表示を継続する)。
+  currentImage() {
+    const page = this.book.pages[this.pageIndex];
+    return typeof page === "string" ? "" : page.image || "";
+  }
+
   isFirstPage() {
     return this.pageIndex === 0;
   }

@@ -67,7 +67,10 @@ class AudioManager {
 
   _playBGMCandidate(candidates, index, gen) {
     if (gen !== this._bgmGen) return; // すでに停止/差し替え済み
-    if (index >= candidates.length) return; // どの拡張子も無ければBGM無しで継続
+    if (index >= candidates.length) {
+      console.warn("[audio] BGM再生に失敗しました。候補をすべて試しましたが再生できません:", candidates);
+      return; // どの拡張子も無ければBGM無しで継続
+    }
 
     // 'error'イベントとplay()のrejectは同じ失敗に対して両方発火することがあるため、
     // 二重に次候補へ進まないよう一度だけ実行するガードを設ける。

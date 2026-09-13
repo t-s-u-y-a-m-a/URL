@@ -8,10 +8,12 @@
 // 絵本口調で独自にまとめた再話。擬音語・擬態語・くり返し・掛け合いを
 // 意識的に使い、あらすじの説明にならないようにしてある。
 //
-// 各ページは { text, imageHint } の形。imageHint は将来イラストを
-// 発注・差し替えする際の参考メモで、ゲーム画面には表示しない。
-// coverImage は表紙イラストのパスのプレースホルダー。ファイルが
-// まだ無くてもエラーにはならず、読み込み失敗時は自動的にcover(絵文字)の
+// 各ページは { text, imageHint, image } の形。imageHint は将来イラストを
+// 発注・差し替えする際の参考メモで、ゲーム画面には表示しない。image は
+// そのページに表示する挿絵のパス(assets/ehon/0X_作品名/配下)で、未設定の
+// ページや読み込み失敗時は自動的に画像なし/プレースホルダー表示に
+// フォールバックする(詳細は assets/ehon/ の各 source.txt を参照)。
+// coverImage も同様に、ファイルが無くてもエラーにはならず絵文字の
 // 表示にフォールバックする。
 
 export const BOOKS = {
@@ -19,7 +21,7 @@ export const BOOKS = {
     stageId: 1,
     title: "大きなかぶ",
     cover: "🥕",
-    coverImage: "assets/images/ehon/ookina-kabu.png",
+    coverImage: "assets/ehon/01_大きなかぶ/cover.jpg",
     description: "おじいさんが うえた かぶが、\nおおきく そだって――\nみんなで ちからを あわせる ゆうめいな おはなし。",
     pages: [
       {
@@ -60,7 +62,7 @@ export const BOOKS = {
     stageId: 2,
     title: "三びきのくま",
     cover: "🐻",
-    coverImage: "assets/images/ehon/sanbiki-no-kuma.png",
+    coverImage: "assets/ehon/02_三びきのくま/cover.jpg",
     description: "もりに すむ くまの かぞくの おうちに、\nひとりの 女の子が まよいこむ おはなし。",
     pages: [
       {
@@ -101,12 +103,13 @@ export const BOOKS = {
     stageId: 3,
     title: "ももたろう",
     cover: "🍑",
-    coverImage: "assets/images/ehon/momotaro.png",
+    coverImage: "assets/ehon/03_ももたろう/cover.jpg",
     description: "ももから うまれた げんきな男の子が、\nなかまと ちからを あわせる\nぼうけんの おはなし。",
     pages: [
       {
         text: "むかしむかし、あるところに、\nおじいさんと おばあさんが\nすんでいました。",
         imageHint: "田舎の小さな家の前に立つ、優しそうな老夫婦。",
+        image: "assets/ehon/03_ももたろう/page01.jpg",
       },
       {
         text: "おばあさんが かわで せんたくを していると――\n\nざぶーん。ざぶーん。\n\nどんぶらこ。どんぶらこ。\n\nおおきな ももが ながれてきました。\n\n「まあ！\nおおきな ももだこと！」",
@@ -142,12 +145,13 @@ export const BOOKS = {
     stageId: 4,
     title: "三びきのこぶた",
     cover: "🐷",
-    coverImage: "assets/images/ehon/sanbiki-no-kobuta.png",
+    coverImage: "assets/ehon/04_三びきのこぶた/cover.jpg",
     description: "3びきの こぶたが、\nそれぞれの いえを たてる\nゆうめいな おはなし。",
     pages: [
       {
         text: "むかしむかし、\nさんびきの こぶたが\nなかよく くらしていました。\n\nある日、3びきは\nじぶんの おうちを\nつくることに しました。",
         imageHint: "3匹の子豚が並んで立ち、家造りの相談をしている。",
+        image: "assets/ehon/04_三びきのこぶた/page01.jpg",
       },
       {
         text: "1ばんめの こぶたは、\n「わらの おうちなら、\nすぐに できるよ！」\n\nさっさかさっさか、あっというまに――\n\n「さあ、できた！」",
@@ -164,6 +168,7 @@ export const BOOKS = {
       {
         text: "そこへ、おおきな おおかみが\nやってきました。\n\n「がおー！\nおまえたちを たべてやろう！」\n\nおおかみは、わらの おうちの まえで\nおおきく いきを すいこみました。",
         imageHint: "藁の家の前で大きく息を吸い込むオオカミ。怖すぎずコミカルに。",
+        image: "assets/ehon/04_三びきのこぶた/page02.jpg",
       },
       {
         text: "「ふーーーっ！」\n\nばさばさーっ！\n\nわらの おうちは とんでいきました。\n\nこぶたは、あわてて\nきの おうちへ にげこみました。",
@@ -187,7 +192,7 @@ export const BOOKS = {
     stageId: 5,
     title: "赤ずきん",
     cover: "🧺",
-    coverImage: "assets/images/ehon/akazukin.png",
+    coverImage: "assets/ehon/05_赤ずきん/cover.jpg",
     description: "あかい ずきんの 女の子と\nおおかみの、\nどきどきする おはなし。",
     pages: [
       {
@@ -201,6 +206,7 @@ export const BOOKS = {
       {
         text: "あかずきんは、\nもりの みちを\nてくてく あるいていきました。\n\nことこと。ことこと。\n\nすると――\nおおかみが やってきました。",
         imageHint: "森の小道を歩く赤ずきんと、木陰からそっと覗くオオカミ。",
+        image: "assets/ehon/05_赤ずきん/page01.jpg",
       },
       {
         text: "「こんにちは。\nどこへ いくの？」\n\n「おばあさんの おうちへ\nいくの。」\n\nあかずきんは、\nうっかり おしえて\nしまいました。",

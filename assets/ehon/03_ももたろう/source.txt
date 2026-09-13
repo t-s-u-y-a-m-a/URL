@@ -1,0 +1,25 @@
+作品：ももたろう (STAGE3)
+ファイル名：cover.jpg (未配置)
+作者：不明(ファイルページに記載なし)
+制作年：1885
+出典：Wikimedia Commons
+画像URL：(出典ページURLよりダウンロードしてください)
+出典ページURL：https://commons.wikimedia.org/wiki/File:Momotaro_illustration,_1885.jpg
+ライセンス：Public Domain
+ライセンス確認日：2026-09-13
+備考：picture-book.js の表紙(coverImage)用。
+
+---
+
+ファイル名：page01.jpg (未配置)
+作者：不明(光文社版, 1885年)
+制作年：1885
+出典：Wikimedia Commons
+画像URL：(出典ページURLよりダウンロードしてください)
+出典ページURL：https://commons.wikimedia.org/wiki/File:Momotaro-Kobunsha-1885-insidecover.jpg
+ライセンス：Public Domain
+ライセンス確認日：2026-09-13
+備考：picture-book.js の1ページ目(おじいさん・おばあさんの導入)用に割り当て。
+      この実行環境は外部ドメインへのアクセスが制限されており画像バイナリを
+      直接取得できないため、上記出典ページからダウンロードしたファイルを
+      本フォルダに配置してください。

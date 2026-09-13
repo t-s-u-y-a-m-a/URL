@@ -1,0 +1,37 @@
+作品：三びきのこぶた (STAGE4)
+ファイル名：cover.jpg (未配置)
+作者：Wikimedia Commonsファイルページ参照
+制作年：20世紀初頭
+出典：Wikimedia Commons
+画像URL：(出典ページURLよりダウンロードしてください)
+出典ページURL：https://commons.wikimedia.org/wiki/File:Three_Little_pigs,_Img005.jpg
+ライセンス：Public Domain (ファイルページ記載)
+ライセンス確認日：2026-09-13
+備考：picture-book.js の表紙(coverImage)用。
+
+---
+
+ファイル名：page01.jpg (未配置)
+作者：Wikimedia Commonsファイルページ参照
+制作年：20世紀初頭
+出典：Wikimedia Commons
+画像URL：(出典ページURLよりダウンロードしてください)
+出典ページURL：https://commons.wikimedia.org/wiki/File:Three_little_pigs,_Img006.jpg
+ライセンス：Public Domain (ファイルページ記載)
+ライセンス確認日：2026-09-13
+備考：picture-book.js の1ページ目(3びき紹介)用に割り当て。
+
+---
+
+ファイル名：page02.jpg (未配置)
+作者：Wikimedia Commonsファイルページ参照
+制作年：20世紀初頭
+出典：Wikimedia Commons
+画像URL：(出典ページURLよりダウンロードしてください)
+出典ページURL：https://commons.wikimedia.org/wiki/File:Three_Little_pigs,_Img012.jpg
+ライセンス：Public Domain (ファイルページ記載)
+ライセンス確認日：2026-09-13
+備考：picture-book.js のオオカミ登場ページ用に割り当て。
+      この実行環境は外部ドメインへのアクセスが制限されており画像バイナリを
+      直接取得できないため、上記出典ページからダウンロードしたファイルを
+      本フォルダに配置してください。

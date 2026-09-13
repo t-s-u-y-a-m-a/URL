@@ -724,21 +724,84 @@ button {
   text-align: center;
   font-weight: 800;
 }
-.ehon-item .ehon-cover { font-size: 2.4rem; margin-bottom: 6px; }
+.ehon-item .ehon-cover {
+  position: relative;
+  font-size: 2.4rem;
+  margin-bottom: 6px;
+  width: 72px;
+  height: 72px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .ehon-item.locked { opacity: 0.5; }
 .ehon-item .ehon-hint { font-size: 0.7rem; color: var(--color-text-soft); font-weight: 500; margin-top: 4px; }
 
 .ehon-panel { display: none; flex-direction: column; gap: 16px; max-width: 480px; margin: 0 auto; width: 100%; text-align: center; }
 .ehon-panel.active { display: flex; }
 
-.ehon-cover-big { font-size: 4rem; }
+.ehon-cover-big {
+  position: relative;
+  font-size: 4rem;
+  width: 160px;
+  height: 200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .ehon-detail-desc { background: var(--color-card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; line-height: 1.7; white-space: pre-wrap; }
+
+/* 表紙画像: 絵文字を土台にし、coverImageの読み込みに成功した場合だけ上に重ねて表示する */
+.ehon-cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: #fff;
+}
 
 .record-status { font-size: 1.3rem; font-weight: 800; color: var(--color-primary-dark); }
 .record-hint { color: var(--color-text-soft); line-height: 1.6; }
 #record-playback { width: 100%; }
 
 .reading-baby, .finish-baby-wrap { font-size: 2.6rem; text-align: center; }
+
+/* 読み聞かせページの挿絵。縦横比を保ったまま枠に収め、画像が無い/読み込み
+   失敗の場合はプレースホルダーを表示してもページ送りは継続できるようにする。 */
+.ehon-page-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--color-card);
+  overflow: hidden;
+}
+.ehon-page-image:empty { display: none; }
+.ehon-page-image-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
+  display: block;
+}
+.ehon-page-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  color: var(--color-text-soft);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
 .ehon-page {
   background: var(--color-card);
   border-radius: var(--radius);

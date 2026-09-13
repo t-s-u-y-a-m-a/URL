@@ -418,7 +418,7 @@ function showEhonDetail(book) {
   activeBook = book;
   usedRecordedVoice = false;
   document.getElementById("ehon-view-title").textContent = book.title;
-  document.getElementById("ehon-detail-cover").textContent = book.cover;
+  document.getElementById("ehon-detail-cover").innerHTML = coverMarkup(book);
   document.getElementById("ehon-detail-desc").textContent = book.description;
   showEhonPanel("ehon-panel-detail");
   showScreen("ehon-view");
@@ -430,7 +430,16 @@ function startReading() {
   showEhonPanel("ehon-panel-reading");
 }
 
+// 挿絵は用意されていれば表示し、読み込みに失敗した場合(未配置・パス誤りなど)は
+// 「準備中」プレースホルダーに差し替える。挿絵が設定されていないページでは
+// 画像枠自体を表示しない。どちらの場合もページ送りは継続できる。
+function pageImageMarkup(imagePath) {
+  if (!imagePath) return "";
+  return `<img class="ehon-page-image-img" src="${imagePath}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ehon-page-image-placeholder',textContent:'🖼️ がぞうを じゅんびちゅうです'}))">`;
+}
+
 function renderReadingPage() {
+  document.getElementById("ehon-page-image").innerHTML = pageImageMarkup(activeReader.currentImage());
   document.getElementById("ehon-page").textContent = activeReader.currentText();
   document.getElementById("page-indicator").textContent =
     `${activeReader.pageIndex + 1} / ${activeReader.totalPages}`;
