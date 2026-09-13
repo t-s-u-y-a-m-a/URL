@@ -1,16 +1,19 @@
 // 「てん」のリアクション表現。ゲーム画面・結果画面など複数箇所から
 // 使い回せるように、対象の要素を渡して制御する小さなクラス。
 
+// 各表情の絵文字と、対応するイラスト画像(あれば)。イラストは
+// assets/images/tenten/ に配置。画像が無い/読み込み失敗の場合は
+// 自動的に絵文字表示にフォールバックする。
 const FACES = {
-  neutral: "👶",
-  smile: "😊",
-  laugh: "😄",
-  bigLaugh: "🤣",
-  cry: "😢",
-  sleepy1: "😌",
-  sleepy2: "😴",
-  sleep: "💤",
-  surprised: "😲",
+  neutral: { emoji: "👶", image: "assets/images/tenten/ten-neutral.jpeg" },
+  smile: { emoji: "😊", image: "assets/images/tenten/ten-happy.png" },
+  laugh: { emoji: "😄", image: "assets/images/tenten/ten-happy.png" },
+  bigLaugh: { emoji: "🤣", image: "assets/images/tenten/ten-happy.png" },
+  cry: { emoji: "😢" },
+  sleepy1: { emoji: "😌", image: "assets/images/tenten/ten-sleepy.png" },
+  sleepy2: { emoji: "😴" },
+  sleep: { emoji: "💤" },
+  surprised: { emoji: "😲", image: "assets/images/tenten/ten-surprised.png" },
 };
 
 export class BabyReaction {
@@ -22,7 +25,14 @@ export class BabyReaction {
 
   setFace(faceKey) {
     if (!this.el) return;
-    this.el.textContent = FACES[faceKey] || FACES.neutral;
+    const face = FACES[faceKey] || FACES.neutral;
+    if (face.image) {
+      this.el.innerHTML =
+        `<img class="baby-face-img" src="${face.image}" alt="" ` +
+        `onerror="this.replaceWith(document.createTextNode('${face.emoji}'))">`;
+    } else {
+      this.el.textContent = face.emoji;
+    }
   }
 
   // ステージ進行（STAGE2の入眠段階など）に応じた「地の表情」を設定する

@@ -47,6 +47,7 @@ function renderHome() {
   const endingUnlocked = SaveStore.data.endingUnlocked;
   document.getElementById("home-complete-badge").hidden = !endingUnlocked;
   document.getElementById("btn-ending").hidden = !endingUnlocked;
+  new BabyReaction(document.getElementById("home-baby")).setFace("neutral");
 }
 
 // ---------------- HOME / NAV ----------------

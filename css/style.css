@@ -117,6 +117,15 @@ button {
   font-size: 5rem;
   animation: bob 2.4s ease-in-out infinite;
 }
+
+/* てんのイラスト表示。絵文字と同じ感覚で使えるよう、周囲のfont-sizeに
+   連動した正方形で表示する(読み込み失敗時はJS側で絵文字にフォールバック)。 */
+.baby-face-img {
+  width: 1em;
+  height: 1em;
+  object-fit: contain;
+  vertical-align: middle;
+}
 @keyframes bob {
   0%, 100% { transform: translateY(0) rotate(-3deg); }
   50% { transform: translateY(-10px) rotate(3deg); }
