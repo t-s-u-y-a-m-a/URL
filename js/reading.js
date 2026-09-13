@@ -12,7 +12,14 @@ export class BookReader {
   }
 
   currentText() {
-    return this.book.pages[this.pageIndex];
+    const page = this.book.pages[this.pageIndex];
+    return typeof page === "string" ? page : page.text;
+  }
+
+  // 将来イラストを差し替える際の参考情報(現状は画面には表示しない)
+  currentImageHint() {
+    const page = this.book.pages[this.pageIndex];
+    return typeof page === "string" ? "" : page.imageHint || "";
   }
 
   isFirstPage() {

@@ -375,6 +375,15 @@ function bindResultButtons() {
 }
 
 // ---------------- EHON DANA ----------------
+// 表紙は絵文字を土台にし、coverImageの読み込みに成功した場合だけ
+// 画像で上書き表示する(画像が用意されるまではエラーにならず絵文字のまま)。
+function coverMarkup(book) {
+  return `<span class="ehon-cover-emoji">${book.cover}</span>` +
+    (book.coverImage
+      ? `<img class="ehon-cover-img" src="${book.coverImage}" alt="" onerror="this.remove()">`
+      : "");
+}
+
 function renderEhonDana() {
   renderMoodGauge("ehon-mood-hearts", "ehon-mood-lv");
   const shelf = document.getElementById("ehon-shelf");
@@ -384,7 +393,7 @@ function renderEhonDana() {
     const item = document.createElement("div");
     item.className = "ehon-item" + (owned ? "" : " locked");
     item.innerHTML = owned
-      ? `<div class="ehon-cover">${book.cover}</div><div>${book.title}</div>`
+      ? `<div class="ehon-cover">${coverMarkup(book)}</div><div>『${book.title}』</div>`
       : `<div class="ehon-cover">🔒</div><div>？？？</div><div class="ehon-hint">STAGE ${book.stageId} クリアで かいほう</div>`;
     if (owned) {
       item.addEventListener("click", () => showEhonDetail(book));
