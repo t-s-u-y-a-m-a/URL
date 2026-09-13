@@ -245,7 +245,7 @@ button {
 .hud-score, .hud-combo { font-size: 1rem; }
 .hud-combo #hud-combo { color: var(--color-primary-dark); font-size: 1.3rem; }
 .baby-stage-view {
-  font-size: 3.2rem;
+  font-size: 5.6rem;
   text-align: center;
   transition: transform 0.15s ease;
 }
@@ -391,23 +391,12 @@ button {
   100% { opacity: 0; transform: translate(-50%, -120%) scale(1.3) rotate(25deg); }
 }
 
-.hand-parent {
-  position: absolute;
-  left: 50%;
-  top: 68%;
-  transform: translate(-50%, -50%);
-  font-size: 4.6rem;
-  z-index: 0;
-  opacity: 0.9;
-  filter: drop-shadow(0 3px 4px rgba(0,0,0,0.08));
-}
-
 .hand-baby {
   position: absolute;
   left: 50%;
   top: 46%;
   transform: translate(-50%, -50%);
-  font-size: 4.2rem;
+  font-size: 7.5rem;
   z-index: 3;
   transition: transform 0.15s ease;
 }
@@ -864,7 +853,7 @@ button {
 @media (max-width: 720px) {
   .touch-controls { display: flex; }
   .lane-area { height: 45vh; }
-  .baby-stage-view { font-size: 2.4rem; }
+  .baby-stage-view { font-size: 4.2rem; }
 }
 @media (min-width: 721px) {
   .touch-controls { display: none; }

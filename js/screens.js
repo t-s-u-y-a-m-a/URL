@@ -194,12 +194,6 @@ function startStage(stageId, difficulty) {
   document.querySelector(".hud-center").hidden = isHandMode;
   const renderer = isHandMode ? createHandApproachRenderer() : createFallLaneRenderer();
 
-  if (isHandMode) {
-    // てんを抱いている親の表現
-    const parentEl = document.getElementById("hand-parent-view");
-    if (parentEl) parentEl.textContent = "🧑";
-  }
-
   const babyEl = document.getElementById(isHandMode ? "hand-baby-view" : "baby-stage-view");
   const baby = new BabyReaction(babyEl);
   baby.setBaseFace("neutral");
