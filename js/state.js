@@ -4,7 +4,6 @@ const SAVE_KEY = "tenten-game-save-v1";
 const MAX_MOOD = 100;
 
 const DEFAULT_SAVE = {
-  player: "father", // "father" | "mother"
   volume: { bgm: 45, se: 80 }, // BGMは声/SEの邪魔をしないよう控えめを初期値にする
   unlockedStages: [1], // クリアしなくても最初はステージ1のみ解放
   clears: {

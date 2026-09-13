@@ -59,25 +59,10 @@ function bindNav() {
     });
   });
 
-  document.getElementById("btn-start-game").addEventListener("click", () => {
-    showScreen("player-select");
-  });
-
   document.getElementById("btn-ending").addEventListener("click", () => {
     SaveStore.data.endingViewed = true;
     SaveStore.save();
     showScreen("ending");
-  });
-}
-
-// ---------------- PLAYER SELECT ----------------
-function bindPlayerSelect() {
-  document.querySelectorAll("#screen-player-select .player-card").forEach((card) => {
-    card.addEventListener("click", () => {
-      SaveStore.data.player = card.dataset.player;
-      SaveStore.save();
-      showScreen("stage-select");
-    });
   });
 }
 
@@ -185,9 +170,9 @@ function startStage(stageId, difficulty) {
   const renderer = isHandMode ? createHandApproachRenderer() : createFallLaneRenderer();
 
   if (isHandMode) {
-    // 選択した親(おとうさん/おかあさん)がてんを抱いている表現
+    // てんを抱いている親の表現
     const parentEl = document.getElementById("hand-parent-view");
-    if (parentEl) parentEl.textContent = SaveStore.data.player === "mother" ? "👩" : "👨";
+    if (parentEl) parentEl.textContent = "🧑";
   }
 
   const babyEl = document.getElementById(isHandMode ? "hand-baby-view" : "baby-stage-view");
@@ -573,9 +558,6 @@ function bindEhonView() {
 
 // ---------------- SETTINGS ----------------
 function renderSettings() {
-  document.querySelectorAll("#player-toggle .toggle-btn").forEach((btn) => {
-    btn.classList.toggle("selected", btn.dataset.player === SaveStore.data.player);
-  });
   document.getElementById("vol-bgm").value = SaveStore.data.volume.bgm;
   document.getElementById("vol-se").value = SaveStore.data.volume.se;
 
@@ -588,14 +570,6 @@ function renderSettings() {
 }
 
 function bindSettings() {
-  document.querySelectorAll("#player-toggle .toggle-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      SaveStore.data.player = btn.dataset.player;
-      SaveStore.save();
-      renderSettings();
-    });
-  });
-
   document.getElementById("vol-bgm").addEventListener("input", (e) => {
     SaveStore.data.volume.bgm = Number(e.target.value);
     Audio_.setVolume("bgm", SaveStore.data.volume.bgm);
@@ -631,7 +605,6 @@ function bindSettings() {
 
 export function initScreens() {
   bindNav();
-  bindPlayerSelect();
   bindResultButtons();
   bindSettings();
   bindEhonView();

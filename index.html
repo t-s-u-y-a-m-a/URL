@@ -22,29 +22,11 @@
       </div>
       <div class="complete-badge" id="home-complete-badge" hidden>✨ COMPLETE</div>
       <div class="menu-buttons">
-        <button class="btn btn-primary" id="btn-start-game">▶ はじめる</button>
+        <button class="btn btn-primary" data-nav="stage-select">▶ はじめる</button>
         <button class="btn" data-nav="ehon-dana">📚 えほんだな</button>
         <button class="btn" id="btn-ending" hidden>🎬 エンディングを見る</button>
         <button class="btn" data-nav="settings">⚙ せってい</button>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ PLAYER SELECT ============ -->
-  <section id="screen-player-select" class="screen">
-    <header class="screen-header">
-      <button class="btn-back" data-nav="home">← もどる</button>
-      <h2>だれと あそぶ？</h2>
-    </header>
-    <div class="player-select-wrap">
-      <button class="player-card" data-player="mother">
-        <div class="player-emoji">👩</div>
-        <div class="player-label">おかあさん</div>
-      </button>
-      <button class="player-card" data-player="father">
-        <div class="player-emoji">👨</div>
-        <div class="player-label">おとうさん</div>
-      </button>
     </div>
   </section>
 
@@ -262,13 +244,6 @@
       <h2>せってい</h2>
     </header>
     <div class="settings-wrap">
-      <div class="setting-row">
-        <label>プレイヤー</label>
-        <div class="toggle-group" id="player-toggle">
-          <button class="toggle-btn" data-player="father">おとうさん</button>
-          <button class="toggle-btn" data-player="mother">おかあさん</button>
-        </div>
-      </div>
       <div class="setting-row">
         <label>BGM</label>
         <div class="toggle-group" id="bgm-onoff-toggle">
