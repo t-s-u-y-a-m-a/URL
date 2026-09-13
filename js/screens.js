@@ -256,12 +256,6 @@ function startStage(stageId, difficulty) {
     },
     onComboChange(combo) {
       document.getElementById("hud-combo").textContent = String(combo);
-      // コンボが伸びるほど、てんが少しずつ楽しそうに跳ねる
-      if (combo > 0 && combo % 5 === 0) {
-        babyEl.classList.remove("excited");
-        void babyEl.offsetWidth;
-        babyEl.classList.add("excited");
-      }
     },
     onScoreChange(score) {
       document.getElementById("hud-score").textContent = String(score);

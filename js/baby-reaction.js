@@ -60,32 +60,23 @@ export class BabyReaction {
     else if (judgment === "MISS") face = "cry";
 
     this.setFace(face);
-    this.el.style.transform = judgment === "MISS" ? "scale(0.92)" : "scale(1.12)";
     clearTimeout(this._timeoutId);
     this._timeoutId = setTimeout(() => {
       this._timeoutId = null;
       this.setFace(this.baseFace);
-      this.el.style.transform = "scale(1)";
     }, 400);
   }
 
-  // STAGE3のほっぺぷにぷに演出（左/両/右）
-  pokeCheek(side) {
-    if (!this.el) return;
-    const cls = side === "A" ? "poke-left" : side === "D" ? "poke-right" : "poke-both";
-    this.el.classList.remove("poke-left", "poke-right", "poke-both");
-    void this.el.offsetWidth;
-    this.el.classList.add(cls);
-    setTimeout(() => this.el && this.el.classList.remove(cls), 300);
+  // STAGE3のほっぺぷにぷに演出（左/両/右）。てん自身は動かさず、表情だけ変える。
+  pokeCheek() {
+    // 現在は表情変化のみ(reactToJudgment)で表現しており、ここでは何もしない。
   }
 
-  // STAGE5の特別な最終「ばあ！」演出
+  // STAGE5の特別な最終「ばあ！」演出。てん自身は動かさず、表情だけ変える。
   playSpecialBaa() {
     if (!this.el) return;
     this.setFace("bigLaugh");
     this.baseFace = "bigLaugh";
-    this.el.classList.add("special-baa");
-    setTimeout(() => this.el && this.el.classList.remove("special-baa"), 900);
   }
 
   reactToResult(rank) {

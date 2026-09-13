@@ -272,9 +272,8 @@ button {
 .hud-score, .hud-combo { font-size: 1rem; }
 .hud-combo #hud-combo { color: var(--color-primary-dark); font-size: 1.3rem; }
 .baby-stage-view {
-  font-size: 5.6rem;
+  font-size: 7.5rem;
   text-align: center;
-  transition: transform 0.15s ease;
 }
 .hud-stage-name { font-size: 0.9rem; text-align: right; }
 .hud-diff { font-size: 0.75rem; color: var(--color-text-soft); text-align: right; }
@@ -355,7 +354,7 @@ button {
   height: min(56vh, 420px);
   margin: 4px auto 0;
 }
-.hand-zone { position: absolute; }
+.hand-zone { position: absolute; z-index: 3; }
 .hand-zone-A { left: 0; top: 26%; width: 42%; height: 48%; }
 .hand-zone-D { left: 58%; top: 26%; width: 42%; height: 48%; }
 .hand-zone-space { left: 30%; top: 54%; width: 40%; height: 46%; }
@@ -423,19 +422,9 @@ button {
   left: 50%;
   top: 46%;
   transform: translate(-50%, -50%);
-  font-size: 7.5rem;
-  z-index: 3;
-  transition: transform 0.15s ease;
+  font-size: 11rem;
+  z-index: 1;
 }
-/* 手が触れた瞬間、てんが軽くバウンドする(STAGE1専用の追加リアクション) */
-.hand-baby.tap-bump { animation: babyTapBump 0.3s ease; }
-@keyframes babyTapBump {
-  0% { transform: translate(-50%, -50%) scale(1); }
-  35% { transform: translate(-50%, -54%) scale(1.12) rotate(-3deg); }
-  70% { transform: translate(-50%, -48%) scale(1.05) rotate(2deg); }
-  100% { transform: translate(-50%, -50%) scale(1); }
-}
-
 .hand-note {
   position: absolute;
   transform: translate(-50%, -50%) scale(0.55);
@@ -558,14 +547,6 @@ button {
   100% { opacity: 0; transform: translate(-50%, -16px) scale(0.95); }
 }
 
-.baby-stage-view.excited, .hand-baby.excited { animation: excitedBounce 0.4s ease; }
-@keyframes excitedBounce {
-  0% { transform: scale(1) rotate(0deg); }
-  30% { transform: scale(1.2) rotate(-5deg); }
-  60% { transform: scale(1.1) rotate(5deg); }
-  100% { transform: scale(1) rotate(0deg); }
-}
-
 .touch-controls {
   display: none;
   gap: 4%;
@@ -597,36 +578,6 @@ button {
 .touch-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .touch-key { font-size: 1.1rem; }
 .touch-caption { font-size: 0.65rem; font-weight: 700; opacity: 0.85; min-height: 1em; }
-
-/* baby cheek-poke feedback (STAGE 3) */
-.baby-stage-view.poke-left { animation: pokeLeft 0.28s ease; }
-.baby-stage-view.poke-right { animation: pokeRight 0.28s ease; }
-.baby-stage-view.poke-both { animation: pokeBoth 0.28s ease; }
-@keyframes pokeLeft {
-  0% { transform: translateX(0) scale(1); }
-  40% { transform: translateX(-6px) scale(1.08, 0.94); }
-  100% { transform: translateX(0) scale(1); }
-}
-@keyframes pokeRight {
-  0% { transform: translateX(0) scale(1); }
-  40% { transform: translateX(6px) scale(1.08, 0.94); }
-  100% { transform: translateX(0) scale(1); }
-}
-@keyframes pokeBoth {
-  0% { transform: scale(1); }
-  40% { transform: scale(1.15, 0.9); }
-  100% { transform: scale(1); }
-}
-
-/* STAGE 5: final special "ばあ！" */
-.baby-stage-view.special-baa { animation: specialBaa 0.9s ease; }
-@keyframes specialBaa {
-  0% { transform: scale(1) rotate(0deg); }
-  25% { transform: scale(1.4) rotate(-6deg); }
-  50% { transform: scale(1.55) rotate(6deg); }
-  75% { transform: scale(1.3) rotate(-3deg); }
-  100% { transform: scale(1) rotate(0deg); }
-}
 
 /* STAGE 5: direction arrows on notes */
 .lane-area.direction-arrows .note { display: flex; align-items: center; justify-content: center; }
@@ -880,7 +831,7 @@ button {
 @media (max-width: 720px) {
   .touch-controls { display: flex; }
   .lane-area { height: 45vh; }
-  .baby-stage-view { font-size: 4.2rem; }
+  .baby-stage-view { font-size: 5.5rem; }
 }
 @media (min-width: 721px) {
   .touch-controls { display: none; }

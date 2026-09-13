@@ -30,7 +30,6 @@ export function createHandApproachRenderer() {
   };
   const stageArea = document.getElementById("hand-stage-area");
   const ring = document.getElementById("judge-ring");
-  const babyEl = document.getElementById("hand-baby-view");
 
   let approachingCount = 0;
 
@@ -75,13 +74,6 @@ export function createHandApproachRenderer() {
     ring.classList.add(`ring-${judgment.toLowerCase()}`);
   }
 
-  function bumpBaby(judgment) {
-    if (!babyEl || judgment === "MISS") return;
-    babyEl.classList.remove("tap-bump");
-    void babyEl.offsetWidth;
-    babyEl.classList.add("tap-bump");
-  }
-
   return {
     spawn(note) {
       const zone = zones[note.key];
@@ -109,7 +101,6 @@ export function createHandApproachRenderer() {
     resolve(note, judgment) {
       if (note._approaching) setApproaching(note, false);
       pulseRing(judgment);
-      bumpBaby(judgment);
       if (judgment === "PERFECT") spawnSparkle();
       if (!note.el) return;
       const el = note.el;
