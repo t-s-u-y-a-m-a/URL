@@ -31,6 +31,7 @@ class AudioManager {
     this.volumes = { bgm: 0.7, se: 0.8 };
     this.enabled = { bgm: true, se: true };
     this.bgmEl = null;
+    this._bgmGen = 0; // stopBGM()後に古いフォールバック探索が再生を復活させないためのガード
   }
 
   setEnabled(kind, isOn) {
@@ -46,23 +47,51 @@ class AudioManager {
   // ---- BGM ----
   // ユーザー操作(ステージ開始など)の後に呼ぶこと。ブラウザの自動再生制限や
   // ファイル未配置で再生できない場合は、何もせず静かに失敗させる。
+  //
+  // 配布元(OpenGameArt等)によって配布フォーマットがmp3/ogg/wavとまちまちなため、
+  // 指定パスの拡張子を変えた候補も順番に試す。どれも無ければ無音のまま継続する。
   playBGM(url) {
     this.stopBGM();
     if (!this.enabled.bgm || !url) return;
+    const gen = this._bgmGen; // stopBGM()で発行が変わればこの探索チェーンは無効化される
+    this._playBGMCandidate(this._bgmCandidates(url), 0, gen);
+  }
+
+  _bgmCandidates(url) {
+    const dot = url.lastIndexOf(".");
+    const base = dot >= 0 ? url.slice(0, dot) : url;
+    const ext = dot >= 0 ? url.slice(dot) : "";
+    const exts = [ext, ".mp3", ".ogg", ".wav"].filter((e, i, arr) => e && arr.indexOf(e) === i);
+    return exts.map((e) => base + e);
+  }
+
+  _playBGMCandidate(candidates, index, gen) {
+    if (gen !== this._bgmGen) return; // すでに停止/差し替え済み
+    if (index >= candidates.length) return; // どの拡張子も無ければBGM無しで継続
+
+    // 'error'イベントとplay()のrejectは同じ失敗に対して両方発火することがあるため、
+    // 二重に次候補へ進まないよう一度だけ実行するガードを設ける。
+    let advanced = false;
+    const advanceToNext = () => {
+      if (advanced) return;
+      advanced = true;
+      if (gen === this._bgmGen) this._playBGMCandidate(candidates, index + 1, gen);
+    };
+
     try {
-      const audio = new Audio(url);
+      const audio = new Audio(candidates[index]);
       audio.loop = true;
       audio.volume = this.volumes.bgm;
-      audio.play().catch(() => {
-        /* ファイルが無い / 自動再生がブロックされた場合はBGM無しで継続 */
-      });
+      audio.addEventListener("error", advanceToNext, { once: true });
+      audio.play().catch(advanceToNext);
       this.bgmEl = audio;
     } catch (e) {
-      this.bgmEl = null;
+      advanceToNext();
     }
   }
 
   stopBGM() {
+    this._bgmGen++; // 進行中のフォールバック探索チェーンを無効化する
     if (this.bgmEl) {
       this.bgmEl.pause();
       this.bgmEl.src = "";
