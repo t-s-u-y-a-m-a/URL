@@ -20,11 +20,14 @@ function worseTier(a, b) {
 export class RhythmEngine {
   /**
    * @param {object} chart - { travelTime, judge: {perfect,great,good}, notes: [{t,key,hold?}] }
-   * @param {object} callbacks - { onJudge, onComboChange, onScoreChange, onBabyReact, onFinish }
+   * @param {object} callbacks - { onJudge, onComboChange, onScoreChange, onBabyReact, onFinish, onRestChange }
+   * @param {object} renderer - { spawn(note), updatePosition(note,frac), setHolding(note,bool), resolve(note,judgment), clear() }
+   *   ノーツの見た目・移動演出を担当する。判定ロジックはここでは一切扱わない。
    */
-  constructor(chart, callbacks) {
+  constructor(chart, callbacks, renderer) {
     this.chart = chart;
     this.callbacks = callbacks || {};
+    this.renderer = renderer;
     this.notes = chart.notes
       .map((n, i) => ({ ...n, id: i, spawned: false, resolved: false, el: null, pressDiff: null }))
       .sort((a, b) => a.t - b.t);
@@ -45,12 +48,6 @@ export class RhythmEngine {
     this.activeHold = { A: null, Space: null, D: null };
     this._inRestState = false;
 
-    this.tracks = {
-      A: document.getElementById("track-A"),
-      Space: document.getElementById("track-Space"),
-      D: document.getElementById("track-D"),
-    };
-
     this._onFrame = this._onFrame.bind(this);
   }
 
@@ -63,7 +60,7 @@ export class RhythmEngine {
   stop() {
     this.running = false;
     if (this.rafId) cancelAnimationFrame(this.rafId);
-    Object.values(this.tracks).forEach((t) => t && (t.innerHTML = ""));
+    this.renderer.clear();
   }
 
   _onFrame(now) {
@@ -96,27 +93,14 @@ export class RhythmEngine {
 
   _spawnNote(note) {
     note.spawned = true;
-    const track = this.tracks[note.key];
-    if (!track) return;
-    const el = document.createElement("div");
-    el.className = "note" + (note.hold ? " hold" : "") + (note.special ? " special" : "");
-    el.style.top = "-40px";
-    if (note.hold) {
-      el.style.height = `${26 + note.hold / 12}px`;
-    }
-    track.appendChild(el);
-    note.el = el;
+    this.renderer.spawn(note);
   }
 
   _updateNotePositions() {
     for (const note of this.notes) {
-      if (!note.spawned || note.resolved || !note.el) continue;
-      const track = note.el.parentElement;
-      const trackHeight = track ? track.clientHeight : 400;
-      const judgeY = trackHeight * 0.86;
+      if (!note.spawned || note.resolved) continue;
       const frac = (this.elapsed - (note.t - this.travelTime)) / this.travelTime;
-      const top = Math.min(frac, 1.3) * judgeY;
-      note.el.style.top = `${top - 17}px`;
+      this.renderer.updatePosition(note, frac);
     }
   }
 
@@ -170,7 +154,7 @@ export class RhythmEngine {
       // ホールド開始：押し始めの誤差だけ記録し、離すタイミングを待つ
       note.pressDiff = diff;
       this.activeHold[key] = note;
-      if (note.el) note.el.classList.add("holding");
+      this.renderer.setHolding(note, true);
       return;
     }
 
@@ -222,11 +206,7 @@ export class RhythmEngine {
 
   _resolveNote(note, judgment) {
     note.resolved = true;
-    if (note.el) {
-      note.el.classList.remove("holding");
-      note.el.classList.add("hit");
-      setTimeout(() => note.el && note.el.remove(), 200);
-    }
+    this.renderer.resolve(note, judgment);
 
     this.counts[judgment]++;
 

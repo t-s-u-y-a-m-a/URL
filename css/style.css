@@ -46,6 +46,8 @@ html, body {
 }
 .screen.active { display: flex; }
 
+[hidden] { display: none !important; }
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -314,6 +316,108 @@ button {
   transition: opacity 0.25s ease;
 }
 .rest-indicator.show { opacity: 1; }
+
+/* ---------- STAGE1: 手が てんに近づく方式 ---------- */
+.hand-stage-area {
+  position: relative;
+  width: min(92vw, 520px);
+  height: min(56vh, 420px);
+  margin: 4px auto 0;
+}
+.hand-zone { position: absolute; }
+.hand-zone-A { left: 0; top: 26%; width: 42%; height: 48%; }
+.hand-zone-D { left: 58%; top: 26%; width: 42%; height: 48%; }
+.hand-zone-space { left: 30%; top: 54%; width: 40%; height: 46%; }
+.hand-zone-tag {
+  position: absolute;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--color-text-soft);
+  white-space: nowrap;
+}
+.hand-zone-A .hand-zone-tag { left: 2px; top: 50%; transform: translateY(-50%); }
+.hand-zone-D .hand-zone-tag { right: 2px; top: 50%; transform: translateY(-50%); }
+.hand-zone-space .hand-zone-tag { left: 50%; bottom: 2px; transform: translateX(-50%); }
+
+.judge-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 3px dashed rgba(255, 157, 108, 0.85);
+  box-shadow: 0 0 22px rgba(255, 209, 102, 0.5) inset;
+  z-index: 2;
+  animation: ringPulse 1.6s ease-in-out infinite;
+}
+@keyframes ringPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.85; }
+  50% { transform: translate(-50%, -50%) scale(1.07); opacity: 1; }
+}
+.judge-ring.ring-perfect { animation: ringFlash 0.35s ease; border-color: var(--color-perfect); }
+.judge-ring.ring-great { animation: ringFlash 0.35s ease; border-color: var(--color-great); }
+.judge-ring.ring-good { animation: ringFlash 0.35s ease; border-color: var(--color-good); }
+.judge-ring.ring-miss { animation: ringFlash 0.35s ease; border-color: var(--color-miss); }
+@keyframes ringFlash {
+  0% { transform: translate(-50%, -50%) scale(1.25); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.hand-baby {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3.6rem;
+  z-index: 3;
+  transition: transform 0.15s ease;
+}
+
+.hand-note {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  z-index: 1;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.18));
+}
+.hand-note.special { filter: drop-shadow(0 0 8px rgba(255, 209, 102, 0.9)); }
+.hand-note.holding { filter: drop-shadow(0 0 6px rgba(126, 196, 207, 0.9)); }
+.hand-note.hand-hit { animation: handTap 0.22s ease forwards; }
+@keyframes handTap {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0; }
+}
+.hand-note.hand-miss { animation: handMiss 0.22s ease forwards; }
+@keyframes handMiss {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-70%, -50%) scale(0.8); opacity: 0; }
+}
+
+.ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid var(--color-primary);
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 1;
+  animation: rippleOut 0.5s ease-out forwards;
+}
+.ripple-perfect { border-color: var(--color-perfect); }
+.ripple-great { border-color: var(--color-great); }
+.ripple-good { border-color: var(--color-good); }
+@keyframes rippleOut {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(3.2); opacity: 0; }
+}
+
 .lane-track {
   position: absolute;
   inset: 0;

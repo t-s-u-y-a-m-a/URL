@@ -201,6 +201,8 @@ export const STAGES = [
     name: "ミルクのあとにトントン",
     type: "tap",
     reactionStyle: "basic",
+    noteStyle: "hand", // 親の手がてんに近づいてくる方式(STAGE1専用)
+    bgmSrc: "assets/sounds/bgm/stage1.mp3",
     description:
       "ミルクを のんだ てんの せなかを、\nやさしく トントンしてあげよう。\n\nSpace / A / D の3つのキーで リズムに あわせて トントンしよう。",
     keys: ["A", "Space", "D"],

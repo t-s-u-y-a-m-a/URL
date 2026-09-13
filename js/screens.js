@@ -1,6 +1,8 @@
 import { SaveStore, Session } from "./state.js";
 import { STAGES, getStage } from "./stage-data.js";
 import { RhythmEngine, calcRank } from "./rhythm-engine.js";
+import { createFallLaneRenderer } from "./note-renderer.js";
+import { createHandApproachRenderer } from "./hand-renderer.js";
 import { InputManager } from "./input.js";
 import { BabyReaction } from "./baby-reaction.js";
 import { Audio_ } from "./audio.js";
@@ -175,9 +177,18 @@ function startStage(stageId, difficulty) {
   });
   document.getElementById("lane-area").classList.toggle("direction-arrows", stage.reactionStyle === "peekaboo");
 
-  const babyEl = document.getElementById("baby-stage-view");
+  // STAGE1は「親の手がてんに近づく」専用レイアウト、それ以外は従来の落下レーン
+  const isHandMode = stage.noteStyle === "hand";
+  document.getElementById("lane-area").hidden = isHandMode;
+  document.getElementById("hand-stage-area").hidden = !isHandMode;
+  document.querySelector(".hud-center").hidden = isHandMode;
+  const renderer = isHandMode ? createHandApproachRenderer() : createFallLaneRenderer();
+
+  const babyEl = document.getElementById(isHandMode ? "hand-baby-view" : "baby-stage-view");
   const baby = new BabyReaction(babyEl);
   baby.setBaseFace("neutral");
+
+  if (stage.bgmSrc) Audio_.playBGM(stage.bgmSrc);
 
   const judgePopup = document.getElementById("judge-popup");
   const speechBubble = document.getElementById("speech-bubble");
@@ -260,7 +271,7 @@ function startStage(stageId, difficulty) {
     onFinish(stats) {
       finishStage(stage, difficulty, stats);
     },
-  });
+  }, renderer);
 
   currentEngine.start();
 }
@@ -269,6 +280,7 @@ function finishStage(stage, difficulty, stats) {
   input.disable();
   currentEngine.stop();
   currentEngine = null;
+  Audio_.stopBGM();
   document.getElementById("rest-indicator").classList.remove("show");
   document.getElementById("game-hint").classList.remove("show");
 
