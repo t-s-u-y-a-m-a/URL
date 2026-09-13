@@ -224,6 +224,33 @@ button {
 
 /* ---------- GAME SCREEN ---------- */
 #screen-game { padding: 0; background: linear-gradient(180deg, #fff1e3, #ffe3cf); }
+
+/* プレイ画面の背景に、てんの今の表情をぼんやり大きく表示する。
+   前面のリアクション(baby-stage-view/hand-baby)とBabyReactionが
+   同期して更新するので、判定に合わせて背景の表情も一緒に変わる。 */
+.game-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.game-bg .baby-face-img {
+  width: 140%;
+  height: 140%;
+  object-fit: cover;
+  filter: blur(6px);
+  opacity: 0.28;
+  transition: opacity 0.3s ease;
+}
+.game-hud, .game-hint, .rest-indicator, .lane-area, .hand-stage-area,
+.judge-popup, .speech-bubble, .touch-controls {
+  position: relative;
+  z-index: 1;
+}
 .game-hud {
   display: flex;
   align-items: center;

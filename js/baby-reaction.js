@@ -17,21 +17,30 @@ const FACES = {
 };
 
 export class BabyReaction {
-  constructor(el) {
+  // bgEl: 任意。指定すると、表情が変わるたびに同じ画像をこの要素にも
+  // 反映する(プレイ画面の背景演出などに使う)。見た目(サイズ・ぼかし等)は
+  // CSS側でbgEl固有のクラスに対して調整する想定。
+  constructor(el, bgEl) {
     this.el = el;
+    this.bgEl = bgEl || null;
     this._timeoutId = null;
     this.baseFace = "neutral"; // 判定演出が終わったら戻る「地の表情」
   }
 
   setFace(faceKey) {
-    if (!this.el) return;
     const face = FACES[faceKey] || FACES.neutral;
+    this._renderInto(this.el, face);
+    this._renderInto(this.bgEl, face);
+  }
+
+  _renderInto(el, face) {
+    if (!el) return;
     if (face.image) {
-      this.el.innerHTML =
+      el.innerHTML =
         `<img class="baby-face-img" src="${face.image}" alt="" ` +
         `onerror="this.replaceWith(document.createTextNode('${face.emoji}'))">`;
     } else {
-      this.el.textContent = face.emoji;
+      el.textContent = face.emoji;
     }
   }
 

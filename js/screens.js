@@ -195,7 +195,7 @@ function startStage(stageId, difficulty) {
   const renderer = isHandMode ? createHandApproachRenderer() : createFallLaneRenderer();
 
   const babyEl = document.getElementById(isHandMode ? "hand-baby-view" : "baby-stage-view");
-  const baby = new BabyReaction(babyEl);
+  const baby = new BabyReaction(babyEl, document.getElementById("game-bg"));
   baby.setBaseFace("neutral");
 
   if (stage.bgmSrc) Audio_.playBGM(stage.bgmSrc);
