@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>てんてんゲーム</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ============ HOME ============ -->
+  <section id="screen-home" class="screen active">
+    <div class="home-wrap">
+      <h1 class="logo">てんてんゲーム</h1>
+      <p class="subtitle">てんといっしょに あそぼう！</p>
+      <div class="baby-preview" id="home-baby">👶</div>
+      <div class="mood-gauge" id="home-mood-gauge">
+        <span class="mood-label">てんの ごきげん</span>
+        <span class="mood-hearts" id="home-mood-hearts"></span>
+        <span class="mood-lv" id="home-mood-lv"></span>
+      </div>
+      <div class="complete-badge" id="home-complete-badge" hidden>✨ COMPLETE</div>
+      <div class="menu-buttons">
+        <button class="btn btn-primary" id="btn-start-game">▶ はじめる</button>
+        <button class="btn" data-nav="ehon-dana">📚 えほんだな</button>
+        <button class="btn" id="btn-ending" hidden>🎬 エンディングを見る</button>
+        <button class="btn" data-nav="settings">⚙ せってい</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLAYER SELECT ============ -->
+  <section id="screen-player-select" class="screen">
+    <header class="screen-header">
+      <button class="btn-back" data-nav="home">← もどる</button>
+      <h2>だれと あそぶ？</h2>
+    </header>
+    <div class="player-select-wrap">
+      <button class="player-card" data-player="mother">
+        <div class="player-emoji">👩</div>
+        <div class="player-label">おかあさん</div>
+      </button>
+      <button class="player-card" data-player="father">
+        <div class="player-emoji">👨</div>
+        <div class="player-label">おとうさん</div>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ STAGE SELECT ============ -->
+  <section id="screen-stage-select" class="screen">
+    <header class="screen-header">
+      <button class="btn-back" data-nav="home">← もどる</button>
+      <h2>ステージ選択</h2>
+    </header>
+    <div class="stage-list" id="stage-list"></div>
+  </section>
+
+  <!-- ============ STAGE INFO ============ -->
+  <section id="screen-stage-info" class="screen">
+    <header class="screen-header">
+      <button class="btn-back" data-nav="stage-select">← もどる</button>
+      <h2 id="stage-info-title">ステージ説明</h2>
+    </header>
+    <div class="stage-info-wrap">
+      <p id="stage-info-desc" class="stage-desc"></p>
+      <div class="difficulty-picker" id="difficulty-picker">
+        <button class="btn diff-btn" data-diff="EASY">EASY</button>
+        <button class="btn diff-btn" data-diff="NORMAL">NORMAL</button>
+        <button class="btn diff-btn" data-diff="HARD">HARD</button>
+      </div>
+      <div class="key-guide">
+        <span class="key-chip">A</span><span class="key-chip">Space</span><span class="key-chip">D</span>
+        <p class="key-guide-caption">この3つのキーだけで あそべます</p>
+      </div>
+      <button class="btn btn-primary btn-start" id="btn-start-stage">スタート</button>
+    </div>
+  </section>
+
+  <!-- ============ RHYTHM GAME ============ -->
+  <section id="screen-game" class="screen">
+    <div class="game-hud">
+      <div class="hud-left">
+        <div class="hud-score">SCORE <span id="hud-score">0</span></div>
+        <div class="hud-combo" id="hud-combo-wrap">COMBO <span id="hud-combo">0</span></div>
+      </div>
+      <div class="hud-center">
+        <div id="baby-stage-view" class="baby-stage-view">👶</div>
+      </div>
+      <div class="hud-right">
+        <div class="hud-stage-name" id="hud-stage-name"></div>
+        <div class="hud-diff" id="hud-diff"></div>
+      </div>
+    </div>
+
+    <div class="game-hint" id="game-hint"></div>
+    <div class="rest-indicator" id="rest-indicator">やすみ…</div>
+
+    <div class="lane-area" id="lane-area">
+      <div class="lane" data-key="A">
+        <div class="lane-label"><span class="lane-key">A</span><span class="lane-caption" id="caption-A"></span></div>
+        <div class="lane-track" id="track-A"></div>
+        <div class="judge-line"></div>
+      </div>
+      <div class="lane" data-key="Space">
+        <div class="lane-label"><span class="lane-key">Space</span><span class="lane-caption" id="caption-Space"></span></div>
+        <div class="lane-track" id="track-Space"></div>
+        <div class="judge-line"></div>
+      </div>
+      <div class="lane" data-key="D">
+        <div class="lane-label"><span class="lane-key">D</span><span class="lane-caption" id="caption-D"></span></div>
+        <div class="lane-track" id="track-D"></div>
+        <div class="judge-line"></div>
+      </div>
+    </div>
+
+    <!-- STAGE1専用: 親の手が てんに近づいてくる方式 -->
+    <div class="hand-stage-area" id="hand-stage-area" hidden>
+      <div class="hand-zone hand-zone-A" id="hand-zone-A"></div>
+      <div class="hand-zone hand-zone-D" id="hand-zone-D"></div>
+      <div class="hand-zone hand-zone-space" id="hand-zone-Space"></div>
+      <div class="hand-parent" id="hand-parent-view"></div>
+      <div class="judge-ring" id="judge-ring"></div>
+      <div class="hand-baby" id="hand-baby-view">👶</div>
+    </div>
+
+    <div class="judge-popup" id="judge-popup"></div>
+    <div class="speech-bubble" id="speech-bubble"></div>
+
+    <div class="touch-controls" id="touch-controls">
+      <button class="touch-btn" data-key="A"><span class="touch-key">A</span><span class="touch-caption" id="touch-caption-A"></span></button>
+      <button class="touch-btn" data-key="Space"><span class="touch-key">SPACE</span><span class="touch-caption" id="touch-caption-Space"></span></button>
+      <button class="touch-btn" data-key="D"><span class="touch-key">D</span><span class="touch-caption" id="touch-caption-D"></span></button>
+    </div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section id="screen-result" class="screen">
+    <div class="result-wrap">
+      <h2 class="result-title">RESULT</h2>
+      <div class="result-baby" id="result-baby">👶</div>
+      <div class="result-rank-label">RANK</div>
+      <div class="result-rank" id="result-rank">S</div>
+      <table class="result-table">
+        <tr><td>SCORE</td><td id="res-score">0</td></tr>
+        <tr><td>PERFECT</td><td id="res-perfect">0</td></tr>
+        <tr><td>GREAT</td><td id="res-great">0</td></tr>
+        <tr><td>GOOD</td><td id="res-good">0</td></tr>
+        <tr><td>MISS</td><td id="res-miss">0</td></tr>
+        <tr><td>MAX COMBO</td><td id="res-combo">0</td></tr>
+      </table>
+      <p class="result-message" id="result-message"></p>
+      <div class="menu-buttons">
+        <button class="btn btn-primary" id="btn-retry">もう一度挑戦する？</button>
+        <button class="btn btn-primary" id="btn-next-stage" hidden>次のステージ</button>
+        <button class="btn" data-nav="stage-select">ステージ選択へ</button>
+        <button class="btn" data-nav="home">ホームへ</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EHON DANA ============ -->
+  <section id="screen-ehon-dana" class="screen">
+    <header class="screen-header">
+      <button class="btn-back" data-nav="home">← もどる</button>
+      <h2>えほんだな</h2>
+    </header>
+    <div class="mood-gauge" id="ehon-mood-gauge">
+      <span class="mood-label">てんの ごきげん</span>
+      <span class="mood-hearts" id="ehon-mood-hearts"></span>
+      <span class="mood-lv" id="ehon-mood-lv"></span>
+    </div>
+    <div class="complete-banner" id="ehon-complete-banner" hidden>
+      🎉 5冊の えほんが あつまりました！<br>「てんとの ものがたりを さいごまで みとどけよう」
+    </div>
+    <div class="ehon-shelf" id="ehon-shelf"></div>
+  </section>
+
+  <!-- ============ EHON VIEW (book detail / reading / recording / finish) ============ -->
+  <section id="screen-ehon-view" class="screen">
+    <header class="screen-header">
+      <button class="btn-back" data-nav="ehon-dana">← もどる</button>
+      <h2 id="ehon-view-title">えほん</h2>
+    </header>
+
+    <div class="ehon-panel active" id="ehon-panel-detail">
+      <div class="ehon-cover-big" id="ehon-detail-cover">📖</div>
+      <p class="ehon-detail-desc" id="ehon-detail-desc"></p>
+      <div class="menu-buttons">
+        <button class="btn btn-primary" id="btn-read-normal">よむ</button>
+        <button class="btn" id="btn-read-record">ろくおんして よむ</button>
+        <button class="btn" data-nav="ehon-dana">えほんだなへ</button>
+      </div>
+    </div>
+
+    <div class="ehon-panel" id="ehon-panel-record">
+      <div class="record-status" id="record-status">🎤 じゅんび中</div>
+      <p class="record-hint" id="record-hint">「うんとこしょ、どっこいしょ……」<br>のように、すきな せりふを ふきこんでね。</p>
+      <div class="menu-buttons">
+        <button class="btn btn-primary" id="btn-record-start">🔴 ろくおん かいし</button>
+        <button class="btn" id="btn-record-stop" hidden>■ ろくおん ていし</button>
+        <audio id="record-playback" controls hidden></audio>
+        <button class="btn" id="btn-record-play" hidden>▶ さいせい</button>
+        <button class="btn" id="btn-record-retry" hidden>もういちど ろくおん</button>
+        <button class="btn btn-primary" id="btn-record-use" hidden>この こえで よむ</button>
+        <button class="btn" id="btn-record-cancel">えほんへ もどる</button>
+      </div>
+    </div>
+
+    <div class="ehon-panel" id="ehon-panel-reading">
+      <div class="reading-baby" id="reading-baby">👶</div>
+      <div class="ehon-page" id="ehon-page"></div>
+      <div class="reading-controls">
+        <button class="btn" id="btn-page-prev">← まえへ</button>
+        <span class="page-indicator" id="page-indicator"></span>
+        <button class="btn btn-primary" id="btn-page-next">つぎへ →</button>
+      </div>
+    </div>
+
+    <div class="ehon-panel" id="ehon-panel-finish">
+      <div class="finish-title">📖 おしまい</div>
+      <div class="reading-baby" id="finish-baby">👶</div>
+      <p class="finish-voice" id="finish-voice"></p>
+      <p class="finish-note" id="finish-note"></p>
+      <div class="mood-gauge" id="finish-mood-gauge">
+        <span class="mood-label">ごきげん UP！</span>
+        <span class="mood-hearts" id="finish-mood-hearts"></span>
+      </div>
+      <div class="menu-buttons">
+        <button class="btn btn-primary" data-nav="ehon-dana">えほんだなへ</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ENDING ============ -->
+  <section id="screen-ending" class="screen">
+    <div class="ending-wrap">
+      <p class="ending-line" id="ending-line-1">5つの ものがたりを とりもどしました。</p>
+      <p class="ending-line" id="ending-line-2">そして、さいごに のこったのは――</p>
+      <p class="ending-line ending-line-em" id="ending-line-3">てんとの じかん。</p>
+      <div class="ending-family" id="ending-family">
+        <span class="ending-person">👩<br>おかあさん</span>
+        <span class="ending-baby">👶<br>てん</span>
+        <span class="ending-person">👨<br>おとうさん</span>
+      </div>
+      <p class="ending-line" id="ending-message">
+        てんとの ものがたりは、<br>これからも つづいていく。
+      </p>
+      <div class="ending-the-end">THE END</div>
+      <div class="menu-buttons">
+        <button class="btn btn-primary" data-nav="home">タイトルへ</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS ============ -->
+  <section id="screen-settings" class="screen">
+    <header class="screen-header">
+      <button class="btn-back" data-nav="home">← もどる</button>
+      <h2>せってい</h2>
+    </header>
+    <div class="settings-wrap">
+      <div class="setting-row">
+        <label>プレイヤー</label>
+        <div class="toggle-group" id="player-toggle">
+          <button class="toggle-btn" data-player="father">おとうさん</button>
+          <button class="toggle-btn" data-player="mother">おかあさん</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label>BGM</label>
+        <div class="toggle-group" id="bgm-onoff-toggle">
+          <button class="toggle-btn" data-onoff="on">ON</button>
+          <button class="toggle-btn" data-onoff="off">OFF</button>
+        </div>
+        <input type="range" id="vol-bgm" min="0" max="100" value="70">
+      </div>
+      <div class="setting-row">
+        <label>SE</label>
+        <div class="toggle-group" id="se-onoff-toggle">
+          <button class="toggle-btn" data-onoff="on">ON</button>
+          <button class="toggle-btn" data-onoff="off">OFF</button>
+        </div>
+        <input type="range" id="vol-se" min="0" max="100" value="80">
+      </div>
+      <div class="setting-row">
+        <button class="btn btn-danger" id="btn-reset-save">セーブデータをリセット</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
