@@ -4,7 +4,7 @@
 // 自動フォールバックする（どちらの状態でもゲームがエラーで止まらない）。
 //
 // 想定しているファイル構成:
-//   assets/sounds/bgm/stage1.mp3
+//   assets/sounds/bgm/bgm_stage<N>_*.mp3 (BGMパスはstage-data.jsのbgmSrcで指定)
 //   assets/sounds/se/{tap,perfect,great,good(未使用/tapを共用),miss,clear}.mp3
 //   assets/sounds/baby/{laugh,cry,voice}.mp3
 // ここにファイルを追加するだけで自動的に使われる。何も置かなければ

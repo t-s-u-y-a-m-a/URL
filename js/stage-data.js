@@ -202,7 +202,7 @@ export const STAGES = [
     type: "tap",
     reactionStyle: "basic",
     noteStyle: "hand", // 親の手がてんに近づいてくる方式(STAGE1専用)
-    bgmSrc: "assets/sounds/bgm/stage1.mp3",
+    bgmSrc: "assets/sounds/bgm/bgm_stage1_piano_for_babies.mp3",
     description:
       "ミルクを のんだ てんの せなかを、\nやさしく トントンしてあげよう。\n\nSpace / A / D の3つのキーで リズムに あわせて トントンしよう。",
     keys: ["A", "Space", "D"],
@@ -223,6 +223,7 @@ export const STAGES = [
     name: "ねんね",
     type: "hold",
     reactionStyle: "sleep",
+    bgmSrc: "assets/sounds/bgm/bgm_stage2_babies_piano_delicate.mp3",
     description:
       "てんを やさしく ねかしつけよう。\n\nSpace：トントン／A：なでる／D：ゆらす\nキーを おした ながさも たいせつ。長押しで じっくり あやしてあげよう。",
     keys: ["A", "Space", "D"],
@@ -243,6 +244,7 @@ export const STAGES = [
     name: "ほっぺぷにぷに",
     type: "direction",
     reactionStyle: "cheek",
+    bgmSrc: "assets/sounds/bgm/bgm_stage3_gentle_care_no2.mp3",
     description:
       "てんの ほっぺを やさしく ぷにぷにしよう。\n\nA：ひだりほっぺ／Space：りょうほっぺ／D：みぎほっぺ",
     keys: ["A", "Space", "D"],
@@ -263,6 +265,7 @@ export const STAGES = [
     name: "こちょこちょ",
     type: "tickle",
     reactionStyle: "tickle",
+    bgmSrc: "assets/sounds/bgm/bgm_stage4_children_piano_gentle_care.mp3",
     description:
       "てんを やさしく こちょこちょ しよう。\n\nA：ひだり／Space：おなか／D：みぎ\n\n『やすみ』の あいだは キーを おさないでね。",
     keys: ["A", "Space", "D"],
@@ -284,6 +287,7 @@ export const STAGES = [
     type: "direction",
     reactionStyle: "peekaboo",
     isFinalStage: true,
+    bgmSrc: "assets/sounds/bgm/bgm_stage5_lullaby.mp3",
     description:
       "さいごの ステージ。\n\nA：ひだりから「ばあ！」／Space：まんなかから「ばあ！」／D：みぎから「ばあ！」\n\n長押しは「いない いない……」、はなすと「ばあ！」だよ。\nこれまでの ぜんぶの ちからを あわせよう。",
     keys: ["A", "Space", "D"],
