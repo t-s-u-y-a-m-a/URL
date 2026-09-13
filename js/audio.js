@@ -21,6 +21,7 @@ const SOUND_FILES = {
   baby: {
     LAUGH: "assets/sounds/baby/laugh.mp3",
     CRY: "assets/sounds/baby/cry.mp3",
+    VOICE: "assets/sounds/baby/voice.mp3",
   },
 };
 
@@ -155,6 +156,13 @@ class AudioManager {
   playLaugh() {
     this._tryPlayFile(SOUND_FILES.baby.LAUGH, "se", () =>
       this._beep({ freq: 950, duration: 0.18, type: "sine", gain: 0.16 })
+    );
+  }
+
+  // GREAT時などの「あー♪」的な軽い声
+  playVoice() {
+    this._tryPlayFile(SOUND_FILES.baby.VOICE, "se", () =>
+      this._beep({ freq: 720, duration: 0.14, type: "sine", gain: 0.14 })
     );
   }
 

@@ -342,7 +342,7 @@ button {
 .judge-ring {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 46%;
   transform: translate(-50%, -50%);
   width: 92px;
   height: 92px;
@@ -365,10 +365,21 @@ button {
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 
+.hand-parent {
+  position: absolute;
+  left: 50%;
+  top: 68%;
+  transform: translate(-50%, -50%);
+  font-size: 4.6rem;
+  z-index: 0;
+  opacity: 0.9;
+  filter: drop-shadow(0 3px 4px rgba(0,0,0,0.08));
+}
+
 .hand-baby {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 46%;
   transform: translate(-50%, -50%);
   font-size: 3.6rem;
   z-index: 3;

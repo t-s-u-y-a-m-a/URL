@@ -184,6 +184,12 @@ function startStage(stageId, difficulty) {
   document.querySelector(".hud-center").hidden = isHandMode;
   const renderer = isHandMode ? createHandApproachRenderer() : createFallLaneRenderer();
 
+  if (isHandMode) {
+    // 選択した親(おとうさん/おかあさん)がてんを抱いている表現
+    const parentEl = document.getElementById("hand-parent-view");
+    if (parentEl) parentEl.textContent = SaveStore.data.player === "mother" ? "👩" : "👨";
+  }
+
   const babyEl = document.getElementById(isHandMode ? "hand-baby-view" : "baby-stage-view");
   const baby = new BabyReaction(babyEl);
   baby.setBaseFace("neutral");
@@ -263,6 +269,7 @@ function startStage(stageId, difficulty) {
       } else {
         baby.reactToJudgment(judgment);
         if (judgment === "PERFECT") Audio_.playLaugh();
+        else if (judgment === "GREAT") Audio_.playVoice();
       }
     },
     onRestChange(inRest) {
