@@ -90,7 +90,7 @@ function renderStageSelect() {
 
     const clears = DIFFICULTIES.map((d) => {
       const done = SaveStore.isDifficultyCleared(stage.id, d);
-      return `<span class="clear-chip${done ? " done" : ""}">${d[0]}</span>`;
+      return `<span class="clear-chip${done ? " done" : ""}" title="${d}">${d}</span>`;
     }).join("");
 
     card.innerHTML = `
@@ -142,6 +142,18 @@ function showStageInfo(stageId) {
 
 const SLEEP_FACES = ["neutral", "sleepy1", "sleepy2", "sleep"];
 
+const VOICE_LINES = {
+  PERFECT: ["きゃっ♪", "きゃはは！", "あー！♪"],
+  GREAT: ["えへへ♪", "うふふ"],
+  GOOD: ["あー", "にこっ"],
+  MISS: ["ふぇ……", "ふにゃ……"],
+};
+
+function pickVoiceLine(judgment) {
+  const lines = VOICE_LINES[judgment];
+  return lines[Math.floor(Math.random() * lines.length)];
+}
+
 // ---------------- GAME ----------------
 function startStage(stageId, difficulty) {
   const stage = getStage(stageId);
@@ -168,6 +180,7 @@ function startStage(stageId, difficulty) {
   baby.setBaseFace("neutral");
 
   const judgePopup = document.getElementById("judge-popup");
+  const speechBubble = document.getElementById("speech-bubble");
   const hintEl = document.getElementById("game-hint");
   const restEl = document.getElementById("rest-indicator");
 
@@ -199,6 +212,12 @@ function startStage(stageId, difficulty) {
       });
       Audio_.playHit(judgment);
 
+      // 判定に合わせて、てんの声をふきだしで一瞬表示する
+      speechBubble.textContent = pickVoiceLine(judgment);
+      speechBubble.classList.remove("show");
+      void speechBubble.offsetWidth;
+      speechBubble.classList.add("show");
+
       if (stage.reactionStyle === "sleep" && judgment !== "MISS") {
         calmProgress++;
         const tier = Math.min(3, Math.floor((calmProgress / totalNotes) * 4));
@@ -216,6 +235,12 @@ function startStage(stageId, difficulty) {
     },
     onComboChange(combo) {
       document.getElementById("hud-combo").textContent = String(combo);
+      // コンボが伸びるほど、てんが少しずつ楽しそうに跳ねる
+      if (combo > 0 && combo % 5 === 0) {
+        babyEl.classList.remove("excited");
+        void babyEl.offsetWidth;
+        babyEl.classList.add("excited");
+      }
     },
     onScoreChange(score) {
       document.getElementById("hud-score").textContent = String(score);

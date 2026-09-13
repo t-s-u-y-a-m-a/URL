@@ -7,41 +7,63 @@ function seq(startTime, interval, keys) {
 }
 
 // ---- STAGE 1: ミルクのあとにトントン ----
+// EASY: Space中心。ゆったりした間隔で、リズムの基本だけを覚える。
 const stage1Easy = [
-  ...seq(2000, 1000, ["Space", "Space", "Space", "Space"]),
-  ...seq(7000, 900, ["Space", "Space", "Space"]),
-  ...seq(10500, 800, ["Space", "Space", "Space", "Space"]),
-  ...seq(14500, 700, ["Space", "Space", "Space", "Space", "Space"]),
+  { t: 2000, key: "Space" },
+  { t: 3100, key: "Space" },
+  { t: 4200, key: "Space" },
+  { t: 5500, key: "Space" },
+  { t: 7000, key: "Space" },
+  { t: 8100, key: "Space" },
+  { t: 9200, key: "Space" },
+  { t: 10500, key: "Space" },
+  { t: 12000, key: "Space" },
+  { t: 13100, key: "Space" },
 ];
 
+// NORMAL: 前半はSpace+A、後半からDが加わる。間隔も少しずつ詰まる。
 const stage1Normal = [
-  ...seq(2000, 900, ["Space", "Space", "A", "Space"]),
-  ...seq(6800, 800, ["Space", "A", "Space", "A"]),
-  ...seq(10400, 700, ["Space", "Space", "A", "Space", "A"]),
-  ...seq(14400, 600, ["A", "Space", "A", "Space", "A", "Space"]),
+  { t: 2000, key: "Space" },
+  { t: 2800, key: "A" },
+  { t: 3600, key: "Space" },
+  { t: 4400, key: "A" },
+  { t: 5200, key: "Space" },
+  { t: 6000, key: "A" },
+  { t: 7200, key: "Space" },
+  { t: 7900, key: "A" },
+  { t: 8600, key: "D" },
+  { t: 9300, key: "Space" },
+  { t: 10000, key: "A" },
+  { t: 10700, key: "D" },
+  { t: 11400, key: "Space" },
+  { t: 12100, key: "A" },
+  { t: 12800, key: "D" },
 ];
 
+// HARD: A/Space/Dを均等に使い、後半に2〜3連続の入力を無理のない間隔(300ms)で追加。
 const stage1Hard = [
   { t: 2000, key: "Space" },
-  { t: 2700, key: "A" },
-  { t: 3400, key: "Space" },
-  { t: 4100, key: "D" },
-  { t: 4700, key: "D" },
-  { t: 5300, key: "A" },
-  { t: 6000, key: "Space" },
-  { t: 7200, key: "Space" },
-  { t: 7800, key: "A" },
-  { t: 8400, key: "D" },
-  { t: 9000, key: "Space" },
-  { t: 9600, key: "A" },
-  { t: 10200, key: "D" },
-  { t: 11400, key: "Space" },
-  { t: 11900, key: "Space" },
+  { t: 2650, key: "A" },
+  { t: 3300, key: "D" },
+  { t: 3950, key: "Space" },
+  { t: 4600, key: "A" },
+  { t: 5250, key: "D" },
+  { t: 5900, key: "Space" },
+  { t: 6550, key: "A" },
+  { t: 7200, key: "D" },
+  { t: 7850, key: "Space" },
+  // 2連続(300ms間隔)
+  { t: 8500, key: "A" },
+  { t: 8800, key: "A" },
+  { t: 9500, key: "D" },
+  { t: 10150, key: "Space" },
+  { t: 10800, key: "A" },
+  { t: 11450, key: "D" },
+  // 3連続(300ms間隔)で締めくくる
+  { t: 12100, key: "Space" },
   { t: 12400, key: "A" },
-  { t: 12900, key: "D" },
-  { t: 13400, key: "A" },
-  { t: 13900, key: "D" },
-  { t: 14400, key: "Space" },
+  { t: 12700, key: "D" },
+  { t: 13400, key: "Space" },
 ];
 
 // ---- STAGE 2: ねんね（長押し中心） ----
@@ -184,12 +206,12 @@ export const STAGES = [
     keys: ["A", "Space", "D"],
     laneLabels: { A: "トントン", Space: "トントン", D: "トントン" },
     startHint: "てんの せなかを トントンしよう",
-    clearMessage: "てんが げっぷをして、にっこり わらいました。",
+    clearMessage: "トントン、じょうずに できたね！\nてんが げっぷをして、にっこり わらいました。",
     ehonTitle: "げっぷと えがお",
     ehonBody:
       "むかしむかし……ではなく、きょうのおはなし。\n\nミルクを のんだ てんの せなかを、\nやさしく トントン すると――\n『ぷはっ』\n\nてんは にっこり わらいました。\nおとうさんも おかあさんも、\nいっしょに にっこり。",
     charts: {
-      EASY: { travelTime: 2200, judge: { perfect: 100, great: 180, good: 280 }, notes: stage1Easy },
+      EASY: { travelTime: 2400, judge: { perfect: 110, great: 190, good: 300 }, notes: stage1Easy },
       NORMAL: { travelTime: 1900, judge: { perfect: 80, great: 150, good: 250 }, notes: stage1Normal },
       HARD: { travelTime: 1600, judge: { perfect: 60, great: 120, good: 200 }, notes: stage1Hard },
     },

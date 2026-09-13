@@ -102,7 +102,7 @@ export class RhythmEngine {
     el.className = "note" + (note.hold ? " hold" : "") + (note.special ? " special" : "");
     el.style.top = "-40px";
     if (note.hold) {
-      el.style.height = `${34 + note.hold / 12}px`;
+      el.style.height = `${26 + note.hold / 12}px`;
     }
     track.appendChild(el);
     note.el = el;
