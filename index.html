@@ -117,15 +117,9 @@
 
     <!-- STAGE1専用: 親の手が てんに近づいてくる方式 -->
     <div class="hand-stage-area" id="hand-stage-area" hidden>
-      <div class="hand-zone hand-zone-A" id="hand-zone-A">
-        <span class="hand-zone-tag">A ←</span>
-      </div>
-      <div class="hand-zone hand-zone-D" id="hand-zone-D">
-        <span class="hand-zone-tag">→ D</span>
-      </div>
-      <div class="hand-zone hand-zone-space" id="hand-zone-Space">
-        <span class="hand-zone-tag">SPACE ↑</span>
-      </div>
+      <div class="hand-zone hand-zone-A" id="hand-zone-A"></div>
+      <div class="hand-zone hand-zone-D" id="hand-zone-D"></div>
+      <div class="hand-zone hand-zone-space" id="hand-zone-Space"></div>
       <div class="hand-parent" id="hand-parent-view"></div>
       <div class="judge-ring" id="judge-ring"></div>
       <div class="hand-baby" id="hand-baby-view">👶</div>
@@ -159,6 +153,7 @@
       <p class="result-message" id="result-message"></p>
       <div class="menu-buttons">
         <button class="btn btn-primary" id="btn-retry">もう一度挑戦する？</button>
+        <button class="btn btn-primary" id="btn-next-stage" hidden>次のステージ</button>
         <button class="btn" data-nav="stage-select">ステージ選択へ</button>
         <button class="btn" data-nav="home">ホームへ</button>
       </div>

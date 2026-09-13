@@ -349,6 +349,22 @@ function renderResult({ stage, stats, rank, cleared, newEhonUnlocked }) {
   } else {
     msgEl.textContent = "もうすこし れんしゅうしてみよう！";
   }
+
+  // クリア時は「次のステージ」(STAGE5クリア時は「えほんを読む」)への導線を出す
+  const nextBtn = document.getElementById("btn-next-stage");
+  const nextStage = getStage(stage.id + 1);
+  if (cleared && stage.isFinalStage) {
+    nextBtn.hidden = false;
+    nextBtn.textContent = "えほんを読む";
+    nextBtn.onclick = () => showScreen("ehon-dana");
+  } else if (cleared && nextStage && !nextStage.comingSoon) {
+    nextBtn.hidden = false;
+    nextBtn.textContent = "次のステージ";
+    nextBtn.onclick = () => showStageInfo(nextStage.id);
+  } else {
+    nextBtn.hidden = true;
+    nextBtn.onclick = null;
+  }
 }
 
 function bindResultButtons() {
