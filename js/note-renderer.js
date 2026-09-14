@@ -31,7 +31,11 @@ export function createFallLaneRenderer() {
       const trackHeight = track ? track.clientHeight : 400;
       const judgeY = trackHeight * 0.86;
       const top = Math.min(frac, 1.3) * judgeY;
-      note.el.style.top = `${top - 17}px`;
+      // ホールドノーツは下方向に帯が伸びた分だけ判定ラインへの到達(＝押すタイミング)が
+      // 見た目より早く見えてしまうため、帯の下端がタップ用ノーツと同じ位置に
+      // 揃うよう、伸ばした高さの分だけ上端を引き上げる。
+      const holdHeightOffset = note.hold ? note.hold / 12 : 0;
+      note.el.style.top = `${top - 17 - holdHeightOffset}px`;
     },
 
     setHolding(note, isHolding) {
