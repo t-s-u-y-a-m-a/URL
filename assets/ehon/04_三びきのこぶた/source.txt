@@ -1,37 +1,21 @@
-作品：三びきのこぶた (STAGE4)
-ファイル名：cover.jpg (未配置)
-作者：Wikimedia Commonsファイルページ参照
-制作年：20世紀初頭
-出典：Wikimedia Commons
-画像URL：(出典ページURLよりダウンロードしてください)
-出典ページURL：https://commons.wikimedia.org/wiki/File:Three_Little_pigs,_Img005.jpg
-ライセンス：Public Domain (ファイルページ記載)
-ライセンス確認日：2026-09-13
-備考：picture-book.js の表紙(coverImage)用。
+【現在使用中の画像について】
 
----
+以下の画像は、ユーザーがアップロードしたイラスト(AI生成画像。ユーザー自身が
+「三びきのこぶた」の挿絵として使ってほしいと指定して提供したもの)に差し替え済みです
+(2026-09-14)。ユーザー本人が生成・所持している画像を、本人の指示で本ゲームの
+挿絵として使用しているため、二次配布・素材サイトの利用規約は関係ない。
 
-ファイル名：page01.jpg (未配置)
-作者：Wikimedia Commonsファイルページ参照
-制作年：20世紀初頭
-出典：Wikimedia Commons
-画像URL：(出典ページURLよりダウンロードしてください)
-出典ページURL：https://commons.wikimedia.org/wiki/File:Three_little_pigs,_Img006.jpg
-ライセンス：Public Domain (ファイルページ記載)
-ライセンス確認日：2026-09-13
-備考：picture-book.js の1ページ目(3びき紹介)用に割り当て。
+- cover.jpg  … 表紙。牧場を背景に並んで立つ3びきのこぶた。
+- page01.jpg … 3びきの紹介(表紙と同系統の絵を再利用)。
+- page02.jpg … 1ばんめのこぶたが、わらの おうちを たてているシーン。
+- page03.jpg … 2ばんめのこぶたが、きの おうちを たてているシーン。
+- page04.jpg … 3ばんめのこぶたが、れんがの おうちを たてているシーン。
+- page05.jpg … おおかみが わらの おうちに いきを ふきかけるシーン。
+- page06.jpg … おおかみが きの おうちを ふきとばし、こぶたが にげるシーン。
+- page07.jpg … れんがの おうちの まえで つかれはてた おおかみ。
+- page08.jpg … 3びきが なかよく わらいあう しあわせな ラストシーン。
 
----
-
-ファイル名：page02.jpg (未配置)
-作者：Wikimedia Commonsファイルページ参照
-制作年：20世紀初頭
-出典：Wikimedia Commons
-画像URL：(出典ページURLよりダウンロードしてください)
-出典ページURL：https://commons.wikimedia.org/wiki/File:Three_Little_pigs,_Img012.jpg
-ライセンス：Public Domain (ファイルページ記載)
-ライセンス確認日：2026-09-13
-備考：picture-book.js のオオカミ登場ページ用に割り当て。
-      この実行環境は外部ドメインへのアクセスが制限されており画像バイナリを
-      直接取得できないため、上記出典ページからダウンロードしたファイルを
-      本フォルダに配置してください。
+元ファイル：ユーザーが zip でアップロードした
+"sanbiki_no_kobuta_01.png"〜"sanbiki_no_kobuta_08.png"(8枚、AI画像生成
+ツールによる生成物)。1000px幅にリサイズし、JPEG quality=82 で再圧縮のみ
+実施(内容の改変・描き直しは行っていない)。
