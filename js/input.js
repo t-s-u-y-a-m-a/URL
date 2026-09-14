@@ -71,6 +71,10 @@ export class InputManager {
       };
       btn.addEventListener("touchstart", press, { passive: false });
       btn.addEventListener("touchend", release, { passive: false });
+      // touchcancel(スクロール割り込み等で発生)を離しとして扱わないと、
+      // ホールド系ノーツ(STAGE2)でそのレーンが押しっぱなし扱いのまま
+      // 次の入力を受け付けなくなってしまう。
+      btn.addEventListener("touchcancel", release, { passive: false });
       btn.addEventListener("mousedown", press);
       btn.addEventListener("mouseup", release);
       btn.addEventListener("mouseleave", release);
