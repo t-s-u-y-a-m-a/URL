@@ -14,9 +14,11 @@ export class InputManager {
     this._enabled = false;
     this._touchBound = false; // タッチボタンのリスナーはアプリ全体で一度だけ登録する
     this._pressed = new Set();
+    this._touchPressed = new Set(); // 現在押されっぱなしのタッチボタンのキー
 
     this._handleKeyDown = this._handleKeyDown.bind(this);
     this._handleKeyUp = this._handleKeyUp.bind(this);
+    this._releaseAll = this._releaseAll.bind(this);
   }
 
   enable() {
@@ -24,6 +26,10 @@ export class InputManager {
     this._enabled = true;
     window.addEventListener("keydown", this._handleKeyDown);
     window.addEventListener("keyup", this._handleKeyUp);
+    // アプリ切り替え・画面ロックなどでtouchend/touchcancelが届かないまま
+    // 指を離されるケースに備え、押しっぱなし状態を強制的に解放する。
+    document.addEventListener("visibilitychange", this._releaseAll);
+    window.addEventListener("blur", this._releaseAll);
     if (!this._touchBound) {
       this._bindTouchButtons();
       this._touchBound = true;
@@ -34,7 +40,22 @@ export class InputManager {
     this._enabled = false;
     window.removeEventListener("keydown", this._handleKeyDown);
     window.removeEventListener("keyup", this._handleKeyUp);
+    document.removeEventListener("visibilitychange", this._releaseAll);
+    window.removeEventListener("blur", this._releaseAll);
     this._pressed.clear();
+  }
+
+  _releaseAll() {
+    this._pressed.forEach((key) => {
+      this._pressed.delete(key);
+      this._flashTouchButton(key, false);
+      this.onKeyRelease && this.onKeyRelease(key);
+    });
+    this._touchPressed.forEach((key) => {
+      this._touchPressed.delete(key);
+      this._flashTouchButton(key, false);
+      this.onKeyRelease && this.onKeyRelease(key);
+    });
   }
 
   _handleKeyDown(e) {
@@ -61,11 +82,15 @@ export class InputManager {
       const key = btn.dataset.key;
       const press = (e) => {
         e.preventDefault();
+        if (this._touchPressed.has(key)) return; // 二重押下(合成マウスイベント等)を無視
+        this._touchPressed.add(key);
         btn.classList.add("pressed");
         this.onKeyPress && this.onKeyPress(key);
       };
       const release = (e) => {
         e.preventDefault();
+        if (!this._touchPressed.has(key)) return;
+        this._touchPressed.delete(key);
         btn.classList.remove("pressed");
         this.onKeyRelease && this.onKeyRelease(key);
       };
